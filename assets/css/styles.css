@@ -67,6 +67,10 @@ h1, h2 {
 	margin-bottom: 20px;
 	margin-top: 40px;
 }
+em a{
+	color: #00F2F2;
+	text-decoration: none;
+}
 .subtitle {
 	font-size: 1em;
 	margin-bottom: 20px;
