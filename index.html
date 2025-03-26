@@ -16,7 +16,7 @@
             background-color: #f4f4f4;
             color: #333;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         body.dark-mode {
@@ -32,6 +32,7 @@
             align-items: center;
             position: relative;
             z-index: 1;
+            padding-bottom: 20px;
         }
 
         .profile-image {
@@ -160,7 +161,7 @@
 
         /* === 8-bit Particle Animation === */
         #particleCanvas {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -217,7 +218,7 @@
 
         // === 8-bit Particle System ===
         const particles = [];
-        const numParticles = 200; // Adjust for particle count
+        const numParticles = 200;
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -226,32 +227,31 @@
             constructor(x, y, color) {
                 this.x = x;
                 this.y = y;
-                this.size = Math.random() * 2 + 1; // Small size variation
+                this.size = Math.random() * 2 + 1;
                 this.color = color;
-                this.speedX = (Math.random() - 0.5) * 0.5; // Slow speed
+                this.speedX = (Math.random() - 0.5) * 0.5;
                 this.speedY = (Math.random() - 0.5) * 0.5;
                 this.opacity = 0;
-                this.fadeSpeed = 0.02;  //slow fade
+                this.fadeSpeed = 0.02;
             }
 
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
 
-                // Wrap around edges
                 if (this.x > canvas.width) this.x = 0;
                 if (this.x < 0) this.x = canvas.width;
                 if (this.y > canvas.height) this.y = 0;
                 if (this.y < 0) this.y = canvas.height;
 
                 this.opacity += this.fadeSpeed;
-                if(this.opacity > 1) this.opacity = 1;
+                if (this.opacity > 1) this.opacity = 1;
             }
 
             draw() {
                 ctx.fillStyle = this.color;
                 ctx.globalAlpha = this.opacity;
-                ctx.fillRect(this.x, this.y, this.size, this.size); // 1x1 pixel squares
+                ctx.fillRect(this.x, this.y, this.size, this.size);
                 ctx.globalAlpha = 1;
             }
         }
@@ -260,7 +260,7 @@
             for (let i = 0; i < numParticles; i++) {
                 const x = Math.random() * canvas.width;
                 const y = Math.random() * canvas.height;
-                const color = Math.random() < 0.5 ? 'rgba(100, 100, 100, 0.8)' : 'rgba(150, 150, 150, 0.8)'; // Darker grey
+                const color = Math.random() < 0.5 ? 'rgba(100, 100, 100, 0.8)' : 'rgba(150, 150, 150, 0.8)';
                 particles.push(new Particle(x, y, color));
             }
         }
@@ -277,10 +277,9 @@
         initializeParticles();
         animateParticles();
 
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
+        // Removed the resize event listener. The canvas size is set on initial load and
+        // should not be changed. The fixed positioning of the canvas ensures it
+        // covers the entire window without interfering with scrolling.
     </script>
 </body>
 </html>
