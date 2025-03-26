@@ -1,292 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ZotoZenTV - Exit The Matrix and live simply with mindful practices and community support. Join us on Telegram for more!">
-  <title>ZotoZenTV</title>
-  <style>
-    :root {
-      --primary: #2C3E50;
-      --accent: #8E44AD;
-      --accent-light: #BB8FCE;
-      --light: #F8F9FA;
-      --gradient: linear-gradient(135deg, #8E44AD, #2C3E50);
-    }
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      line-height: 1.7;
-      color: var(--primary);
-    }
-    /* Smooth Scroll Behavior */
-    html {
-      scroll-behavior: smooth;
-    }
-    /* Modern Header */
-    header {
-      position: relative;
-      height: 100vh;
-      background: url('https://images.unsplash.com/photo-1579451861283-a215a1e8ba4e') center/cover,
-                  var(--gradient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: white;
-      overflow: hidden;
-    }
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(44, 62, 80, 0.7);
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 600px;
-      animation: fadeIn 2s ease-in-out;
-    }
-    h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero-subtitle {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    .cta-buttons {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .cta-button {
-      background: var(--gradient);
-      padding: 1rem 2.5rem;
-      border-radius: 30px;
-      color: white;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: transform 0.3s, box-shadow 0.3s;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-    .cta-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
-    .cta-button.secondary {
-      background: transparent;
-      border: 2px solid white;
-      color: white;
-    }
-    /* Floating particles animation */
-    .particles {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-    .particle {
-      position: absolute;
-      background: rgba(255,255,255,0.3);
-      border-radius: 50%;
-      animation: float 8s linear infinite;
-      will-change: transform; /* New optimization */
-    }
-    /* Sections */
-    section {
-      padding: 6rem 2rem;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .section-title {
-      font-size: 2.5rem;
-      margin-bottom: 3rem;
-      position: relative;
-    }
-    .section-title::after {
-      content: '';
-      position: absolute;
-      width: 60px;
-      height: 3px;
-      background: var(--accent);
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    /* Features Grid */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 4rem;
-    }
-    .feature-card {
-      background: white;
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    .feature-card:hover {
-      transform: translateY(-5px);
-    }
-    .feature-icon {
-      font-size: 2.5rem;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-    }
-    .avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--accent);
-    }
-    /* Parallax Section */
-    .parallax-section {
-      background: url('https://images.unsplash.com/photo-1587145829007-7a58461b247a') center/cover;
-      height: 500px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: center;
-      margin: 6rem 0;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.3);
-      padding-top: 6rem; /* Adds space above the section */
-      scroll-margin-top: 6rem; /* Ensures smooth scrolling accounts for fixed headers if any */
-    }
-    .parallax-content {
-      background: rgba(44, 62, 80, 0.8);
-      padding: 2rem 3rem;
-      border-radius: 15px;
-    }
-    .social-icons {
-      display: flex;
-      gap: 1rem;
-      font-size: 1.5rem;
-    }
-    .social-icons a {
-      color: white;
-      transition: transform 0.3s;
-    }
-    .social-icons a:hover {
-      transform: scale(1.2);
-    }
-    /* Animations */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
-    /* Responsive */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.5rem;
-      }
-      .parallax-section {
-        height: 300px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoto</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        body.dark-mode {
+            background-color: #121212;
+            color: #eee;
+        }
+
+        .container {
+            text-align: center;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-image {
+            margin-top: 100px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-title {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .profile-subtitle {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #eee;
+            transition: background-color 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: #ddd;
+        }
+
+        .social-icons img {
+            width: 24px;
+            height: 24px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .social-icons img:hover {
+            opacity: 1;
+        }
+
+        .link-button {
+            display: block;
+            width: 100%;
+            padding: 15px 0;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #e0e0e0;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .link-button.dark-mode {
+            background-color: #333;
+            color: #eee;
+        }
+
+        .link-button:hover {
+            background-color: #ccc;
+        }
+
+        .link-button.dark-mode:hover {
+            background-color: #444;
+            color: #fff;
+        }
+
+        .mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ddd;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            z-index: 10;
+        }
+
+        .mode-toggle.dark-mode {
+            background-color: #444;
+            color: #eee;
+        }
+
+        .mode-toggle:hover {
+            background-color: #ccc;
+        }
+
+        .mode-toggle.dark-mode:hover {
+            background-color: #555;
+        }
+
+        @media (max-width: 400px) {
+            .mode-toggle {
+                top: 10px;
+                right: 10px;
+            }
+
+            .profile-image {
+                margin-top: 100px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Hero Section -->
-  <header>
-    <div class="particles" id="particlesContainer"></div>
-    <div class="hero-content">
-      <h1>Exit The Matrix</h1>
-      <p class="hero-subtitle">To exit the matrix, you need no teachings or guru standing between you and source. You are enough.</p>
-      <div class="cta-buttons">
-        <a href="#join-telegram" class="cta-button">Join Us</a>
-        <a href="https://www.youtube.com/channel/UCJ3PabPsmdfdJi87qJXgPzQ" class="cta-button secondary">YouTube</a>
-      </div>
-    </div>
-  </header>
-  <!-- About Section -->
-  <section>
     <div class="container">
-      <h2 class="section-title">Live Simply</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">🧘</div>
-          <h3>Mindful Living</h3>
-          <p>Cultivate awareness and presence through guided meditation sessions and mindfulness workshops.</p>
+        <button class="mode-toggle" id="modeToggle">Light Mode</button>
+        <div class="profile-image">
+            <img id="profileImg" src="https://yt3.ggpht.com/K_QbbxXSjQQSBq7nNpEyWCPEeXCTuOMEm6qPUQ0GY1xiCIzpuTBae1mqI5vwW5E5s_BC9jdcJA=s600-c-k-c0x00ffffff-no-rj-rp-mo" alt="Profile">
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">🌱</div>
-          <h3>Personal Growth</h3>
-          <p>Explore transformative programs designed to help you evolve spiritually and emotionally.</p>
+        <div class="profile-title">@ZotoZen</div>
+        <div class="profile-subtitle">Start Here to Dive Deeper</div>
+        <div class="social-icons">
+            <a href="https://www.youtube.com/@ZotoZen" title="YouTube"><img src="https://unpkg.com/simple-icons@v7/icons/youtube.svg" alt="YouTube"></a>
+            <a href="https://web.telegram.org/" title="Telegram"><img src="https://unpkg.com/simple-icons@v7/icons/telegram.svg" alt="Telegram"></a>
+            <a href="#" title="Instagram"><img src="https://unpkg.com/simple-icons@v7/icons/instagram.svg" alt="Instagram"></a>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">🤝</div>
-          <h3>Community Support</h3>
-          <p>Join a network of seekers participating in group activities worldwide.</p>
-        </div>
-      </div>
+        <a href="https://www.youtube.com/@ZotoZen" class="link-button">YouTube Channel</a>
+        <a href="#" class="link-button">Link 2</a>
+        <a href="#" class="link-button">Link 3</a>
+        <a href="#" class="link-button">Link 4</a>
+        <a href="#" class="link-button">Link 5</a>
+        <a href="#" class="link-button">Link 6</a>
+        <a href="#" class="link-button">Link 7</a>
+        <a href="#" class="link-button">Link 8</a>
+        <a href="#" class="link-button">Link 9</a>
     </div>
-  </section>
-  <!-- Parallax Section -->
-  <div class="parallax-section" id="join-telegram">
-    <div class="parallax-content container">
-      <h2>Join The Telegram Channel</h2>
-      <p class="hero-subtitle">Continue Your Journey with Us on Telegram</p>
-      <a href="https://t.me/zotoxentv" class="cta-button" target="_blank">Zoto ZenTV Telegram</a>
-    </div>
-  </div>
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/5d3b7429d3.js" crossorigin="anonymous"></script>
-  <!-- Particle Generation Script -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const particlesContainer = document.getElementById('particlesContainer');
-      const particleCount = window.innerWidth > 768 ? 20 : 10; // Responsive count
 
-      const createParticle = () => {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        
-        // Randomize properties
-        const size = Math.random() * 5 + 5; // 5-10px
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.top = `${Math.random() * 100}%`;
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.animationDelay = `${Math.random() * 4}s`;
-        
-        return particle;
-      };
+    <script>
+        const modeToggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const linkButtons = document.querySelectorAll('.link-button');
+        const profileImg = document.getElementById('profileImg');
 
-      // Batch append for better performance
-      const fragment = document.createDocumentFragment();
-      for (let i = 0; i < particleCount; i++) {
-        fragment.appendChild(createParticle());
-      }
-      particlesContainer.appendChild(fragment);
-    });
-  </script>
+        modeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            linkButtons.forEach(button => {
+                button.classList.toggle('dark-mode');
+            });
+            if (body.classList.contains('dark-mode')) {
+                modeToggle.textContent = 'Light Mode';
+                profileImg.src = "https://yt3.ggpht.com/K_QbbxXSjQQSBq7nNpEyWCPEeXCTuOMEm6qPUQ0GY1xiCIzpuTBae1mqI5vwW5E5s_BC9jdcJA=s600-c-k-c0x00ffffff-no-rj-rp-mo";
+            } else {
+                modeToggle.textContent = 'Dark Mode';
+                profileImg.src = "https://yt3.ggpht.com/K_QbbxXSjQQSBq7nNpEyWCPEeXCTuOMEm6qPUQ0GY1xiCIzpuTBae1mqI5vwW5E5s_BC9jdcJA=s600-c-k-c0x00ffffff-no-rj-rp-mo";
+            }
+        });
+    </script>
 </body>
 </html>
