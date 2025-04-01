@@ -43,6 +43,11 @@
             background-color: #ddd;
             margin-bottom: 20px;
             overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
         }
 
         .profile-image img {
@@ -54,12 +59,22 @@
         .profile-title {
             font-size: 1.5em;
             margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .profile-title:hover {
+            color: #007bff;
         }
 
         .profile-subtitle {
             font-size: 0.9em;
             color: #777;
             margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .profile-subtitle:hover {
+            color: #999;
         }
 
         .social-icons {
@@ -77,11 +92,12 @@
             height: 36px;
             border-radius: 50%;
             background-color: #eee;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s ease;
         }
 
         .social-icons a:hover {
             background-color: #ddd;
+            transform: scale(1.1);
         }
 
         .social-icons img {
@@ -105,7 +121,7 @@
             background-color: #e0e0e0;
             color: #333;
             text-decoration: none;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s ease;
         }
 
         .link-button.dark-mode {
@@ -115,11 +131,15 @@
 
         .link-button:hover {
             background-color: #ccc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .link-button.dark-mode:hover {
             background-color: #444;
             color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .mode-toggle {
@@ -131,8 +151,7 @@
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-            z-index: 10;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s ease;
         }
 
         .mode-toggle.dark-mode {
@@ -142,10 +161,14 @@
 
         .mode-toggle:hover {
             background-color: #ccc;
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .mode-toggle.dark-mode:hover {
             background-color: #555;
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         @media (max-width: 400px) {
@@ -218,7 +241,8 @@
 
         // === 8-bit Particle System ===
         const particles = [];
-        const numParticles = 200;
+        let numParticles = 200;
+        let particleSize = 3;
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -227,7 +251,7 @@
             constructor(x, y, color) {
                 this.x = x;
                 this.y = y;
-                this.size = Math.random() * 2 + 1;
+                this.size = Math.random() * particleSize + 1;
                 this.color = color;
                 this.speedX = (Math.random() - 0.5) * 0.5;
                 this.speedY = (Math.random() - 0.5) * 0.5;
@@ -257,6 +281,7 @@
         }
 
         function initializeParticles() {
+             particles.length = 0;
             for (let i = 0; i < numParticles; i++) {
                 const x = Math.random() * canvas.width;
                 const y = Math.random() * canvas.height;
@@ -274,12 +299,29 @@
             requestAnimationFrame(animateParticles);
         }
 
+        function adjustParticleDensity() {
+            if (window.innerWidth < 768) {
+                numParticles = 100;
+                particleSize = 2;
+            } else if (window.innerWidth < 1200) {
+                numParticles = 150;
+                particleSize = 2.5;
+            } else {
+                numParticles = 200;
+                particleSize = 3;
+            }
+            initializeParticles();
+        }
+
+        adjustParticleDensity();
         initializeParticles();
         animateParticles();
 
-        // Removed the resize event listener. The canvas size is set on initial load and
-        // should not be changed. The fixed positioning of the canvas ensures it
-        // covers the entire window without interfering with scrolling.
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            adjustParticleDensity();
+        });
     </script>
 </body>
 </html>
