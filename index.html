@@ -32,7 +32,7 @@
             align-items: center;
             position: relative;
             z-index: 1;
-            padding-bottom: 20px;
+            padding-bottom: 40px; /* Increased padding-bottom to make space for footer */
         }
 
         .profile-image {
@@ -192,6 +192,26 @@
             z-index: 0;
             pointer-events: none;
         }
+
+        /* === Footer Styles === */
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 0.8em;
+            color: #888;
+            background-color: #f4f4f4; /* Light background for light mode */
+            transition: background-color 0.3s, color 0.3s;
+            z-index: 1;
+        }
+
+        .footer.dark-mode {
+            background-color: #121212; /* Dark background for dark mode */
+            color: #888;
+        }
     </style>
 </head>
 <body>
@@ -215,6 +235,10 @@
         <a href="https://flamo.us/" class="link-button">Disney Hat Store</a>
         <a href="https://www.soulful-alignment.com/" class="link-button">Book A Hypnosis Session</a>
         <a href="https://zotowebdesign.netlify.app/" class="link-button">Web Design</a>
+        <a href="https://www.planetfitness.com/referrals?referralCode=GV0R0PC1" class="link-button">Join PlanetFitness</a>
+    </div>
+    <div class="footer">
+        Powered by good vibes &amp; built by Zoto.
     </div>
 
     <script>
@@ -224,12 +248,15 @@
         const profileImg = document.getElementById('profileImg');
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
+        const footer = document.querySelector('.footer');
+
 
         modeToggle.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
             linkButtons.forEach(button => {
                 button.classList.toggle('dark-mode');
             });
+            footer.classList.toggle('dark-mode');
             if (body.classList.contains('dark-mode')) {
                 modeToggle.textContent = 'Light Mode';
                 profileImg.src = "assets/images/profile-img.jpeg";
@@ -281,7 +308,7 @@
         }
 
         function initializeParticles() {
-             particles.length = 0;
+            particles.length = 0;
             for (let i = 0; i < numParticles; i++) {
                 const x = Math.random() * canvas.width;
                 const y = Math.random() * canvas.height;
