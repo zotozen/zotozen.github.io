@@ -32,7 +32,7 @@
             align-items: center;
             position: relative;
             z-index: 1;
-            padding-bottom: 40px; /* Increased padding-bottom to make space for footer */
+            padding-bottom: 40px;
         }
 
         .profile-image {
@@ -122,7 +122,7 @@
             color: #333;
             text-decoration: none;
             transition: background-color 0.3s, color 0.3s, transform 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .link-button.dark-mode {
@@ -153,7 +153,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s, transform 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .mode-toggle.dark-mode {
@@ -205,14 +205,47 @@
             text-align: center;
             font-size: 0.8em;
             color: #888;
-            background-color: #f4f4f4; /* Light background for light mode */
+            background-color: #f4f4f4;
             transition: background-color 0.3s, color 0.3s;
             z-index: 1;
         }
 
         .footer.dark-mode {
-            background-color: #121212; /* Dark background for dark mode */
+            background-color: #121212;
             color: #888;
+        }
+
+        /* === Special Donation Button Styles === */
+        #donationButton {
+            display: block;
+            width: 100%;
+            padding: 15px 0;
+            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #ffd700;
+            color: #000;
+            text-decoration: none;
+            text-align: center;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            order: 100; /* Ensure it's always at the bottom */
+        }
+
+        #donationButton:hover {
+            background-color: #ffc300;
+            transform: translateY(-2px);
+        }
+
+        #donationButton.dark-mode {
+            background-color: #ffd700;
+            color: #000;
+        }
+
+        #donationButton.dark-mode:hover {
+            background-color: #ffc300;
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -241,6 +274,7 @@
         <a href="https://zotozengaming.netlify.app/" class="link-button">My Gamer Tags</a>
         <a href="https://www.gaia.com/invite/join?rfd=WS34Mw&utm_source=iaf" class="link-button">Watch The SSP On Gaia</a>
         <a href="https://chatllm.abacus.ai/WLhWkLKGKD" class="link-button">ChatLLM Best AI App</a>
+        <a id="donationButton" href="https://paypal.me/ZotoZen?country.x=US&locale.x=es_XC">Support The Work</a>
     </div>
     <div class="footer">
         Powered by good vibes & built by Zoto.
