@@ -246,10 +246,11 @@
         #donationButton.dark-mode:hover {
             background-color: #ffc300;
             transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         /* === Latest Featured Link Styles === */
-        #featuredLinkButton {
+        .featured-link-button {
             display: block;
             width: 100%;
             padding: 15px 0;
@@ -263,24 +264,24 @@
             font-weight: bold;
             transition: background-color 0.3s, transform 0.2s ease;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            cursor: not-allowed; /* Make it clear it's not clickable */
+            pointer-events: none;
         }
 
-        #featuredLinkButton:hover {
-            background-color: #f44336;
+        .featured-link-button:hover {
+            background-color: #e53935;
             transform: translateY(-2px);
-             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        #featuredLinkButton.dark-mode {
+        .featured-link-button.dark-mode {
             background-color: #f44336;
             color: #fff;
         }
 
-        #featuredLinkButton.dark-mode:hover {
-            background-color: #f44336;
+        .featured-link-button.dark-mode:hover {
+            background-color: #e53935;
             transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -298,7 +299,7 @@
             <a href="https://t.me/zotozentv" title="Telegram"><img src="https://unpkg.com/simple-icons@v7/icons/telegram.svg" alt="Telegram"></a>
             <a href="https://www.tiktok.com/@zoto.zen" title="Instagram"><img src="https://unpkg.com/simple-icons@v7/icons/instagram.svg" alt="Instagram"></a>
         </div>
-        <a id="featuredLinkButton">Latest Featured Link</a>
+        <a href="https://your-link-here.com" class="featured-link-button">⚠️ Coming Soon</a>
         <a href="https://www.youtube.com/@ZotoZen" class="link-button">YouTube Channel</a>
         <a href="https://t.me/zotozentv" class="link-button">Telegram Chat</a>
         <a href="https://www.tiktok.com/@zoto.zen" class="link-button">TikTok Profile</a>
