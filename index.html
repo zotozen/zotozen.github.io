@@ -16,7 +16,7 @@
             background-color: #f4f4f4;
             color: #333;
             position: relative;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         body.dark-mode {
@@ -31,8 +31,8 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            z-index: 1;
-            padding-bottom: 40px;
+            z-index: 1; /* Ensure content is above particles */
+            padding-bottom: 40px; /* Space for footer */
         }
 
         .profile-image {
@@ -40,7 +40,7 @@
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            background-color: #ddd;
+            background-color: #ddd; /* Placeholder background */
             margin-bottom: 20px;
             overflow: hidden;
             transition: transform 0.2s ease;
@@ -53,7 +53,7 @@
         .profile-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Ensure image covers the circle */
         }
 
         .profile-title {
@@ -63,7 +63,7 @@
         }
 
         .profile-title:hover {
-            color: #007bff;
+            color: #007bff; /* Highlight on hover */
         }
 
         .profile-subtitle {
@@ -74,7 +74,7 @@
         }
 
         .profile-subtitle:hover {
-            color: #999;
+            color: #999; /* Highlight on hover */
         }
 
         .social-icons {
@@ -103,12 +103,12 @@
         .social-icons img {
             width: 24px;
             height: 24px;
-            opacity: 0.7;
+            opacity: 0.7; /* Slightly faded initially */
             transition: opacity 0.3s;
         }
 
         .social-icons img:hover {
-            opacity: 1;
+            opacity: 1; /* Full opacity on hover */
         }
 
         .link-button {
@@ -123,6 +123,7 @@
             text-decoration: none;
             transition: background-color 0.3s, color 0.3s, transform 0.2s ease;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Center the text */
         }
 
         .link-button.dark-mode {
@@ -154,6 +155,7 @@
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s, transform 0.2s ease;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 2; /* Ensure toggle is above other elements */
         }
 
         .mode-toggle.dark-mode {
@@ -177,10 +179,16 @@
             .mode-toggle {
                 top: 10px;
                 right: 10px;
+                padding: 8px 12px; /* Adjust padding for smaller screens */
             }
 
             .profile-image {
-                margin-top: 60px;
+                margin-top: 60px; /* Keep margin consistent */
+            }
+
+            .container {
+                width: 90%; /* Make container more responsive */
+                max-width: 300px; /* Maintain max width */
             }
         }
 
@@ -191,8 +199,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
-            pointer-events: none;
+            z-index: 0; /* Background layer */
+            pointer-events: none; /* Allow clicks on elements below */
         }
 
         /* === Footer Styles === */
@@ -207,7 +215,7 @@
             color: #888;
             background-color: #f4f4f4;
             transition: background-color 0.3s, color 0.3s;
-            z-index: 1;
+            z-index: 1; /* Ensure footer is above particles */
         }
 
         .footer.dark-mode {
@@ -220,26 +228,26 @@
             display: block;
             width: 100%;
             padding: 15px 0;
-            margin-top: 20px;
+            margin-top: 20px; /* Add space above */
             border: none;
             border-radius: 8px;
-            background-color: #ffd700;
+            background-color: #ffd700; /* Gold color */
             color: #000;
             text-decoration: none;
             text-align: center;
             font-weight: bold;
             transition: background-color 0.3s, transform 0.2s ease;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            order: 100;
+            order: 100; /* Push to the bottom of the flex container */
         }
 
         #donationButton:hover {
-            background-color: #ffc300;
+            background-color: #ffc300; /* Darker gold on hover */
             transform: translateY(-2px);
         }
 
         #donationButton.dark-mode {
-            background-color: #ffd700;
+            background-color: #ffd700; /* Keep gold in dark mode */
             color: #000;
         }
 
@@ -257,7 +265,7 @@
             margin-bottom: 10px;
             border: none;
             border-radius: 8px;
-            background-color: #f44336;
+            background-color: #f44336; /* Red color */
             color: #fff;
             text-decoration: none;
             text-align: center;
@@ -267,13 +275,13 @@
         }
 
         .featured-link-button:hover {
-            background-color: #e53935;
+            background-color: #e53935; /* Darker red on hover */
             transform: translateY(-2px);
              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .featured-link-button.dark-mode {
-            background-color: #f44336;
+            background-color: #f44336; /* Keep red in dark mode */
             color: #fff;
         }
 
@@ -289,14 +297,14 @@
     <div class="container">
         <button class="mode-toggle" id="modeToggle">Dark Mode</button>
         <div class="profile-image">
-            <img id="profileImg" src="assets/images/profile-img.jpeg" alt="Profile">
+            <img id="profileImg" src="assets/images/profile-img.jpeg" alt="Profile" onerror="this.onerror=null; this.src='https://placehold.co/150x150/cccccc/333333?text=Profile'">
         </div>
         <div class="profile-title">@ZotoZen</div>
-        <div class="profile-subtitle">Desert Mystic of the Atlantean Flame.</div>
+        <div class="profile-subtitle" id="profileSubtitle"></div>
         <div class="social-icons">
-            <a href="https://www.youtube.com/@ZotoZen" title="YouTube"><img src="https://unpkg.com/simple-icons@v7/icons/youtube.svg" alt="YouTube"></a>
-            <a href="https://t.me/zotozentv" title="Telegram"><img src="https://unpkg.com/simple-icons@v7/icons/telegram.svg" alt="Telegram"></a>
-            <a href="https://www.tiktok.com/@zoto.zen" title="Instagram"><img src="https://unpkg.com/simple-icons@v7/icons/instagram.svg" alt="Instagram"></a>
+            <a href="https://www.youtube.com/@ZotoZen" title="YouTube"><img src="https://unpkg.com/simple-icons@v7/icons/youtube.svg" alt="YouTube" onerror="this.onerror=null; this.src='https://placehold.co/24x24/eeeeee/333333?text=YT'"></a>
+            <a href="https://t.me/zotozentv" title="Telegram"><img src="https://unpkg.com/simple-icons@v7/icons/telegram.svg" alt="Telegram" onerror="this.onerror=null; this.src='https://placehold.co/24x24/eeeeee/333333?text=TG'"></a>
+            <a href="https://www.tiktok.com/@zoto.zen" title="Instagram"><img src="https://unpkg.com/simple-icons@v7/icons/instagram.svg" alt="Instagram" onerror="this.onerror=null; this.src='https://placehold.co/24x24/eeeeee/333333?text=IG'"></a>
         </div>
         <a href="https://acrobat.adobe.com/id/urn:aaid:sc:US:82324682-9bac-4a2a-8d34-b9d270b7a1b0" class="featured-link-button">⚠️ Vril Doc Disclosure</a>
         <a href="https://www.youtube.com/@ZotoZen" class="link-button">YouTube Channel</a>
@@ -321,11 +329,41 @@
     <script>
         const modeToggle = document.getElementById('modeToggle');
         const body = document.body;
-        const linkButtons = document.querySelectorAll('.link-button');
+        const linkButtons = document.querySelectorAll('.link-button, .featured-link-button, #donationButton'); // Include featured and donation buttons
         const profileImg = document.getElementById('profileImg');
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         const footer = document.querySelector('.footer');
+        const profileSubtitle = document.getElementById('profileSubtitle'); // Get the subtitle element
+
+        // Array of possible subtitles
+        const subtitles = [
+            "Neo-Andalusian Starseed",
+            "Desert Mystic of the Atlantean Flame",
+            "Child of the Five Ancients",
+            "Mestizo of the Moors, Maya, and Mesopotamia",
+            "Time-traveler with a passport from Ur to Tenochtitlán",
+            "A descendant of Atlantis’ echoes via Sonoran shamans",
+            "A spiritual child of Sumer and keeper of Andalusian light",
+            "A carrier of jungle drums, desert winds, and seafarer’s whispers",
+            "Cosmic Citizen with VIP lineage access",
+            "Carrying DNA from five continents."
+        ];
+
+        // Function to select a random subtitle
+        function setRandomSubtitle() {
+            const randomIndex = Math.floor(Math.random() * subtitles.length);
+            profileSubtitle.textContent = subtitles[randomIndex];
+        }
+
+        // Set a random subtitle when the page loads
+        window.onload = function() {
+            setRandomSubtitle();
+            // Also initialize and start particle animation on load
+            adjustParticleDensity();
+            initializeParticles();
+            animateParticles();
+        };
 
 
         modeToggle.addEventListener('click', () => {
@@ -336,10 +374,12 @@
             footer.classList.toggle('dark-mode');
             if (body.classList.contains('dark-mode')) {
                 modeToggle.textContent = 'Light Mode';
-                profileImg.src = "assets/images/profile-img.jpeg";
+                // Profile image logic remains the same as it's not changing
+                profileImg.src = profileImg.src; // Keep current image
             } else {
                 modeToggle.textContent = 'Dark Mode';
-                profileImg.src = "assets/images/profile-img.jpeg";
+                 // Profile image logic remains the same as it's not changing
+                profileImg.src = profileImg.src; // Keep current image
             }
         });
 
@@ -348,6 +388,7 @@
         let numParticles = 200;
         let particleSize = 3;
 
+        // Set initial canvas size
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
@@ -367,11 +408,13 @@
                 this.x += this.speedX;
                 this.y += this.speedY;
 
+                // Wrap particles around the screen
                 if (this.x > canvas.width) this.x = 0;
                 if (this.x < 0) this.x = canvas.width;
                 if (this.y > canvas.height) this.y = 0;
                 if (this.y < 0) this.y = canvas.height;
 
+                // Fade in the particles
                 this.opacity += this.fadeSpeed;
                 if (this.opacity > 1) this.opacity = 1;
             }
@@ -380,29 +423,31 @@
                 ctx.fillStyle = this.color;
                 ctx.globalAlpha = this.opacity;
                 ctx.fillRect(this.x, this.y, this.size, this.size);
-                ctx.globalAlpha = 1;
+                ctx.globalAlpha = 1; // Reset alpha
             }
         }
 
         function initializeParticles() {
-            particles.length = 0;
+            particles.length = 0; // Clear existing particles
             for (let i = 0; i < numParticles; i++) {
                 const x = Math.random() * canvas.width;
                 const y = Math.random() * canvas.height;
+                // Randomly choose a color for the particles
                 const color = Math.random() < 0.5 ? 'rgba(100, 100, 100, 0.8)' : 'rgba(150, 150, 150, 0.8)';
                 particles.push(new Particle(x, y, color));
             }
         }
 
         function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
             particles.forEach(particle => {
                 particle.update();
                 particle.draw();
             });
-            requestAnimationFrame(animateParticles);
+            requestAnimationFrame(animateParticles); // Loop the animation
         }
 
+        // Adjust particle density based on screen size
         function adjustParticleDensity() {
             if (window.innerWidth < 768) {
                 numParticles = 100;
@@ -414,13 +459,10 @@
                 numParticles = 200;
                 particleSize = 3;
             }
-            initializeParticles();
+            initializeParticles(); // Re-initialize particles with new density
         }
 
-        adjustParticleDensity();
-        initializeParticles();
-        animateParticles();
-
+        // Adjust canvas size and particle density on window resize
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
