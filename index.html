@@ -336,8 +336,8 @@
         const footer = document.querySelector('.footer');
         const profileSubtitle = document.getElementById('profileSubtitle'); // Get the subtitle element
 
-        // Array of possible subtitles
-        const subtitles = [
+        // Array of possible subtitles for Light Mode
+        const lightModeSubtitles = [
             "Neo-Andalusian Starseed",
             "Desert Mystic of the Atlantean Flame",
             "Child of the Five Ancients",
@@ -348,7 +348,6 @@
             "A carrier of jungle drums, desert winds, and seafarer’s whispers",
             "Cosmic Citizen with VIP lineage access",
             "Carrying DNA from five continents.",
-            // Added new quotes below
             "Acturian Starseed",
             "The Choosen One",
             "Modern Mystic",
@@ -364,15 +363,28 @@
             "World's greatest detective!"
         ];
 
-        // Function to select a random subtitle
-        function setRandomSubtitle() {
-            const randomIndex = Math.floor(Math.random() * subtitles.length);
-            profileSubtitle.textContent = subtitles[randomIndex];
+        // Array of possible subtitles for Dark Mode
+        const darkModeSubtitles = [
+            "The best way to get an idea started is to quit talking and begin doing. - Walt Disney",
+            "Don't watch the clock; do what it does. Keep going. - Sam Levenson",
+            "You don't have to be great to start, but you have to start to be great. - Zig Ziglar",
+            "Bootstrapping is about being resourceful, not resourceless. - Unknown",
+            "The way to get started is to quit talking and begin doing. - Walt Disney"
+        ];
+
+        // Function to select a random subtitle from a given array
+        function setRandomSubtitle(subtitleArray) {
+            const randomIndex = Math.floor(Math.random() * subtitleArray.length);
+            profileSubtitle.textContent = subtitleArray[randomIndex];
         }
 
-        // Set a random subtitle when the page loads
+        // Set a random subtitle when the page loads based on initial mode (defaulting to light)
         window.onload = function() {
-            setRandomSubtitle();
+            if (body.classList.contains('dark-mode')) {
+                setRandomSubtitle(darkModeSubtitles);
+            } else {
+                setRandomSubtitle(lightModeSubtitles);
+            }
             // Also initialize and start particle animation on load
             adjustParticleDensity();
             initializeParticles();
@@ -386,12 +398,17 @@
                 button.classList.toggle('dark-mode');
             });
             footer.classList.toggle('dark-mode');
+
             if (body.classList.contains('dark-mode')) {
                 modeToggle.textContent = 'Light Mode';
+                // Set a random dark mode subtitle
+                setRandomSubtitle(darkModeSubtitles);
                 // Profile image logic remains the same as it's not changing
                 profileImg.src = profileImg.src; // Keep current image
             } else {
                 modeToggle.textContent = 'Dark Mode';
+                 // Set a random light mode subtitle
+                setRandomSubtitle(lightModeSubtitles);
                  // Profile image logic remains the same as it's not changing
                 profileImg.src = profileImg.src; // Keep current image
             }
