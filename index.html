@@ -60,6 +60,10 @@
             font-size: 1.5em;
             margin-bottom: 5px;
             transition: color 0.3s ease;
+            white-space: nowrap; /* Prevent text wrapping */
+            overflow: hidden;
+            border-right: .15em solid orange; /* The typing cursor */
+            letter-spacing: normal;
         }
 
         .profile-title:hover {
@@ -71,6 +75,8 @@
             color: #777;
             margin-bottom: 15px;
             transition: color 0.3s ease;
+            height: 1.2em; /* Reserve space to avoid layout shift during animation */
+            overflow: hidden;
         }
 
         .profile-subtitle:hover {
@@ -299,20 +305,18 @@
         <div class="profile-image">
             <img id="profileImg" src="assets/images/profile-img.jpeg" alt="Profile" onerror="this.onerror=null; this.src='https://placehold.co/150x150/cccccc/333333?text=Profile'">
         </div>
-        <div class="profile-title">@ZotoZen</div>
+        <div class="profile-title" id="profileTitle"></div>
         <div class="profile-subtitle" id="profileSubtitle"></div>
         <div class="social-icons">
             <a href="https://www.youtube.com/@ZotoZen" title="YouTube"><img src="https://unpkg.com/simple-icons@v7/icons/youtube.svg" alt="YouTube" onerror="this.onerror=null; this.src='https://placehold.co/24x24/eeeeee/333333?text=YT'"></a>
             <a href="https://t.me/zotozentv" title="Telegram"><img src="https://unpkg.com/simple-icons@v7/icons/telegram.svg" alt="Telegram" onerror="this.onerror=null; this.src='https://placehold.co/24x24/eeeeee/333333?text=TG'"></a>
-            <a href="https://www.tiktok.com/@zoto.zen" title="Instagram"><img src="https://unpkg.com/simple-icons@v7/icons/instagram.svg" alt="Instagram" onerror="this.onerror=null; this.src='https://placehold.co/24x24/eeeeee/333333?text=IG'"></a>
+            <a href="https://www.instagram.com/zoto.zen/" title="Instagram"><img src="https://unpkg.com/simple-icons@v7/icons/instagram.svg" alt="Instagram" onerror="this.onerror=null; this.src='https://placehold.co/24x24/eeeeee/333333?text=IG'"></a>
         </div>
-        <!-- Featured Links -->
         <a href="https://acrobat.adobe.com/id/urn:aaid:sc:US:82324682-9bac-4a2a-8d34-b9d270b7a1b0" class="featured-link-button">⚠️ Vril Doc Disclosure</a>
         <a href="https://www.youtube.com/watch?v=JptENkiR6Lc&" class="featured-link-button">🎥 Featurette: Greek/Deception</a>
         <a href="https://jasonbreshears.podia.com/phoenix-anunna-calendar-color-charts-timeline-index" class="featured-link-button">🗺️ World History & Future Chart $6</a>
-        <!-- End of Featured links -->
         <a href="https://www.youtube.com/@ZotoZen" class="link-button">YouTube Channel</a>
-        <a href="https://t.me/zotozentv" class="link-button">Telegram Blog Chat</a>
+        <a href="https://t.me/zotozentvchat" class="link-button">Telegram Blog Chat</a>
         <a href="https://www.tiktok.com/@zoto.zen" class="link-button">TikTok Videos</a>
         <a href="https://drive.proton.me/urls/MAH96NGJSW#h5ssxd7KNB7G" class="link-button">The Vault: Files & PDFS</a>
         <a href="https://flamo.us/" class="link-button">Shop Disney Hats</a>
@@ -333,12 +337,14 @@
     <script>
         const modeToggle = document.getElementById('modeToggle');
         const body = document.body;
-        const linkButtons = document.querySelectorAll('.link-button, .featured-link-button, #donationButton'); // Include featured and donation buttons
+        const linkButtons = document.querySelectorAll('.link-button, .featured-link-button, #donationButton'); // Include featured and donation buttons.  Important for dark mode
         const profileImg = document.getElementById('profileImg');
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         const footer = document.querySelector('.footer');
         const profileSubtitle = document.getElementById('profileSubtitle'); // Get the subtitle element
+        const profileTitle = document.getElementById('profileTitle');
+        const donationButton = document.getElementById('donationButton'); // Get the donation button
 
         // Array of possible subtitles for Light Mode
         const lightModeSubtitles = [
@@ -376,10 +382,19 @@
             "The way to get started is to quit talking and begin doing. - Walt Disney"
         ];
 
+        let subtitleIndex = 0;
+        let subtitleInterval;
+
         // Function to select a random subtitle from a given array
         function setRandomSubtitle(subtitleArray) {
             const randomIndex = Math.floor(Math.random() * subtitleArray.length);
             profileSubtitle.textContent = subtitleArray[randomIndex];
+        }
+
+        function cycleSubtitles() {
+            subtitleIndex = (subtitleIndex + 1) % (body.classList.contains('dark-mode') ? darkModeSubtitles.length : lightModeSubtitles.length);
+            const currentSubtitleArray = body.classList.contains('dark-mode') ? darkModeSubtitles : lightModeSubtitles;
+            profileSubtitle.textContent = currentSubtitleArray[subtitleIndex];
         }
 
         // Set a random subtitle when the page loads based on initial mode (defaulting to light)
@@ -393,8 +408,9 @@
             adjustParticleDensity();
             initializeParticles();
             animateParticles();
+            typeWriter(); //start the typewriter
+            subtitleInterval = setInterval(cycleSubtitles, 4000);
         };
-
 
         modeToggle.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
@@ -406,13 +422,17 @@
             if (body.classList.contains('dark-mode')) {
                 modeToggle.textContent = 'Light Mode';
                 // Set a random dark mode subtitle
+                clearInterval(subtitleInterval);
                 setRandomSubtitle(darkModeSubtitles);
+                subtitleInterval = setInterval(cycleSubtitles, 4000);
                 // Profile image logic remains the same as it's not changing
                 profileImg.src = profileImg.src; // Keep current image
             } else {
                 modeToggle.textContent = 'Dark Mode';
                  // Set a random light mode subtitle
+                 clearInterval(subtitleInterval);
                 setRandomSubtitle(lightModeSubtitles);
+                subtitleInterval = setInterval(cycleSubtitles, 4000);
                  // Profile image logic remains the same as it's not changing
                 profileImg.src = profileImg.src; // Keep current image
             }
@@ -503,6 +523,22 @@
             canvas.height = window.innerHeight;
             adjustParticleDensity();
         });
+
+        // === Typewriter Effect ===
+        let i = 0;
+        const txt = '@ZotoZen';
+        const speed = 150; // Typing speed
+
+        function typeWriter() {
+            if (i < txt.length) {
+                profileTitle.textContent += txt.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            } else {
+                // If you want the cursor to blink at the end of the typing
+                profileTitle.style.borderRight = 'none'; // Remove cursor
+            }
+        }
     </script>
 </body>
 </html>
