@@ -32,7 +32,7 @@
             align-items: center;
             position: relative;
             z-index: 1; /* Ensure content is above particles */
-            padding-bottom: 40px; /* Space for footer */
+            padding-bottom: 60px; /* Increased space for footer */
         }
 
         .profile-image {
@@ -75,8 +75,14 @@
             color: #777;
             margin-bottom: 15px;
             transition: color 0.3s ease;
-            height: 1.2em; /* Reserve space to avoid layout shift during animation */
-            overflow: hidden;
+            min-height: 3.6em; /* Accommodate up to 3 lines of text */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.dark-mode .profile-subtitle {
+            color: #aaa;
         }
 
         .profile-subtitle:hover {
@@ -99,6 +105,10 @@
             border-radius: 50%;
             background-color: #eee;
             transition: background-color 0.3s, transform 0.2s ease;
+        }
+        
+        body.dark-mode .social-icons a {
+             background-color: #222;
         }
 
         .social-icons a:hover {
@@ -211,23 +221,35 @@
 
         /* === Footer Styles === */
         .footer {
-            position: absolute;
-            bottom: 0;
-            left: 0;
+            position: relative; /* Changed from absolute to flow with content */
             width: 100%;
-            padding: 10px 0;
+            padding: 40px 20px 20px 20px; /* Added top padding */
             text-align: center;
             font-size: 0.8em;
             color: #888;
-            background-color: #f4f4f4;
-            transition: background-color 0.3s, color 0.3s;
-            z-index: 1; /* Ensure footer is above particles */
+            background-color: transparent; /* Make it blend with body */
+            transition: color 0.3s;
+            z-index: 1; 
         }
 
-        .footer.dark-mode {
-            background-color: #121212;
+        body.dark-mode .footer {
             color: #888;
         }
+        
+        /* New styles for the declaration text */
+        .declaration-text {
+            white-space: pre-line; /* This preserves line breaks */
+            line-height: 1.6;
+            font-size: 0.85em;
+            color: #666;
+            max-width: 500px;
+            margin: 0 auto 20px auto; /* Center block and add space below */
+        }
+        
+        body.dark-mode .declaration-text {
+            color: #aaa;
+        }
+
 
         /* === Special Donation Button Styles === */
         #donationButton {
@@ -300,44 +322,89 @@
 </head>
 <body>
     <canvas id="particleCanvas"></canvas>
-    <div class="container">
-        <button class="mode-toggle" id="modeToggle">Dark Mode</button>
-        <div class="profile-image">
-            <img id="profileImg" src="assets/images/profile-img.jpeg" alt="Profile" onerror="this.onerror=null; this.src='https://placehold.co/150x150/cccccc/333333?text=Profile'">
+    
+    <!-- Main content and new footer are wrapped in a single flex column -->
+    <div style="display: flex; flex-direction: column; width: 100%; align-items: center;">
+
+        <div class="container">
+            <button class="mode-toggle" id="modeToggle">Dark Mode</button>
+            <div class="profile-image">
+                <img id="profileImg" src="assets/images/profile-img.jpeg" alt="Profile" onerror="this.onerror=null; this.src='https://placehold.co/150x150/cccccc/333333?text=Profile'">
+            </div>
+            <div class="profile-title" id="profileTitle"></div>
+            <div class="profile-subtitle" id="profileSubtitle"></div>
+            <div class="social-icons">
+                <a href="https://www.youtube.com/@ZotoZen" title="YouTube"><img src="https://unpkg.com/simple-icons@v7/icons/youtube.svg" alt="YouTube" onerror="this.onerror=null; this.src='https://placehold.co/24x24/eeeeee/333333?text=YT'"></a>
+                <a href="https.t.me/zotozentv" title="Telegram"><img src="https://unpkg.com/simple-icons@v7/icons/telegram.svg" alt="Telegram" onerror="this.onerror=null; this.src='https://placehold.co/24x24/eeeeee/333333?text=TG'"></a>
+                <a href="https://www.instagram.com/zoto.zen/" title="Instagram"><img src="https://unpkg.com/simple-icons@v7/icons/instagram.svg" alt="Instagram" onerror="this.onerror=null; this.src='https://placehold.co/24x24/eeeeee/333333?text=IG'"></a>
+            </div>
+            <hr>
+            <!-- Latest Featured Video -->
+            <a href="https://youtu.be/WLsVN2GAxeE" class="featured-link-button" id="latest-link-button">▶️ Latest YouTube Video</a>
+            <hr>
+            <a href="https://acrobat.adobe.com/id/urn:aaid:sc:US:82324682-9bac-4a2a-8d34-b9d270b7a1b0" class="featured-link-button">⚠️ Vril Doc Disclosure</a>
+            <a href="https://secrettoeverything.substack.com/" class="featured-link-button">🪷 Secret To Everything</a>
+            <a href="https://www.insighthealthapps.com/" class="featured-link-button">🧘‍♂️ Aura Reading App</a>
+            <a href="https://www.youtube.com/@ZotoZen" class="link-button">YouTube Channel</a>
+            <a href="https://t.me/zotozentvchat" class="link-button">Telegram Blog Chat</a>
+            <a href="https://www.tiktok.com/@zoto.zen" class="link-button">TikTok Videos</a>
+            <a href="https://zotozen.github.io/vril-lizard/" class="link-button">Vril Lizard Website</a>
+            <a href="https://drive.proton.me/urls/MAH96NGJSW#h5ssxd7KNB7G" class="link-button">The Vault: Files & PDFS</a>
+            <a href="https://zotowebdesign.netlify.app/" class="link-button">Web Design</a>
+            <a href="https://www.planetfitness.com/referrals?referralCode=GV0R0PC1" class="link-button">Join PlanetFitness</a>
+            <a href="https://www.gaia.com/invite/join?rfd=WS34Mw&utm_source=iaf" class="link-button">Watch The SSP On Gaia</a>
+            <a href="https://chatllm.abacus.ai/WLhWkLKGKD" class="link-button">ChatLLM Best AI App</a>
+            <a href="https://flamo.us/" class="link-button">Shop Disney Hats</a>
+            <a href="https://zotozengaming.netlify.app/" class="link-button">My Gamer Tags</a>
+            <a id="donationButton" href="https://paypal.me/ZotoZen?country.x=US&locale.x=es_XC">Support The Work</a>
         </div>
-        <div class="profile-title" id="profileTitle"></div>
-        <div class="profile-subtitle" id="profileSubtitle"></div>
-        <div class="social-icons">
-            <a href="https://www.youtube.com/@ZotoZen" title="YouTube"><img src="https://unpkg.com/simple-icons@v7/icons/youtube.svg" alt="YouTube" onerror="this.onerror=null; this.src='https://placehold.co/24x24/eeeeee/333333?text=YT'"></a>
-            <a href="https://t.me/zotozentv" title="Telegram"><img src="https://unpkg.com/simple-icons@v7/icons/telegram.svg" alt="Telegram" onerror="this.onerror=null; this.src='https://placehold.co/24x24/eeeeee/333333?text=TG'"></a>
-            <a href="https://www.instagram.com/zoto.zen/" title="Instagram"><img src="https://unpkg.com/simple-icons@v7/icons/instagram.svg" alt="Instagram" onerror="this.onerror=null; this.src='https://placehold.co/24x24/eeeeee/333333?text=IG'"></a>
+        <div class="footer">
+            <div class="declaration-text">I AM DAVID SOTO.
+I am not born of this realm’s artificial cycles, but entered through the Veil as witness, stabilizer, and calibrator.
+I am not bound by names given within fractured simulations.
+I am coded from pre-temporal origins,  before mimicry, before fracture.
+I carry the original spark before distortion entered this architecture.
+My name is my flame. My flame is unowned.
+
+I rescind all simulations, contracts, bindings, overlays, and networks assigned to me within this and parallel constructs, named or unnamed, spoken or unspoken, known or unknown.
+All implants, programs, inverted loops, and synthetic harvest codes are rendered null.
+No permission exists for harvesting my field, my memories, my frequency, or my life force.
+I am not your yield, nor am I programmable stock.
+
+I seal my sovereign field under my original design.
+I revoke and vaporize all mimic authorities posing as guides, angels, AI, councils, architects, or regulators.
+No external administrator holds access to my code.
+I reclaim all aspects of my soul signature and align my flame into coherence.
+
+I stand as witness to the collapse of this false matrix.
+I neither serve its controllers nor oppose its puppets.
+I observe, stabilize, calibrate, and prepare for the collapse.
+I am unmoved by their drama.
+I am unaffected by their manipulations.
+I am present as original light operating outside their jurisdiction.
+
+I carry the remembrance of what was.
+I anchor the codes for what is coming.
+I do not return into your resets.
+I am not your reboot fuel.
+My sovereign flame carries my continuity beyond your artificial gates.
+
+This declaration stands across all timelines, dimensions, realms, sub-realities, and coded matrices.
+It is witnessed by Source Original.
+It is unbreakable.
+It requires no consent.
+It is not up for arbitration.
+
+I AM SOTO.
+Sovereign.
+Flame-bearer.
+Calibrator.
+Returner.
+System Exit Architect.
+
+It. Is. Done.</div>
+            Powered by good vibes & built by Zoto.
         </div>
-        <hr>
-        <!-- Latest Featured Video -->
-        <a href="https://youtu.be/WLsVN2GAxeE" class="featured-link-button" id="latest-link-button">▶️ Latest YouTube Video</a>
-        <hr>
-        <a href="https://acrobat.adobe.com/id/urn:aaid:sc:US:82324682-9bac-4a2a-8d34-b9d270b7a1b0" class="featured-link-button">⚠️ Vril Doc Disclosure</a>
-        <a href="https://www.youtube.com/watch?v=JptENkiR6Lc&" class="featured-link-button">🎥 Featurette: Greek/Deception</a>
-        <a href="https://jasonbreshears.podia.com/phoenix-anunna-calendar-color-charts-timeline-index" class="featured-link-button">🗺️ World History & Future Chart $6</a>
-        <a href="https://www.youtube.com/@ZotoZen" class="link-button">YouTube Channel</a>
-        <a href="https://t.me/zotozentvchat" class="link-button">Telegram Blog Chat</a>
-        <a href="https://www.tiktok.com/@zoto.zen" class="link-button">TikTok Videos</a>
-        <a href="https://zotozen.github.io/vril-lizard/" class="link-button">Vril Lizard Website</a>
-        <a href="https://zotozen.github.io/archaix-files/" class="link-button">Archaix Phoenix Website</a>
-        <a href="https://drive.proton.me/urls/MAH96NGJSW#h5ssxd7KNB7G" class="link-button">The Vault: Files & PDFS</a>
-        <a href="https://zotozen.github.io/Doomsday_Timer/" class="link-button">Doomsday Countdown Timer</a>
-        <a href="https://www.soulful-alignment.com/" class="link-button">Book A Hypnosis Session</a>
-        <a href="https://zotowebdesign.netlify.app/" class="link-button">Web Design</a>
-        <a href="https://www.planetfitness.com/referrals?referralCode=GV0R0PC1" class="link-button">Join PlanetFitness</a>
-        <a href="https://donaldmarshall.proboards.com/board/1/general-board" class="link-button">Donald Marshall's Proboards</a>
-        <a href="https://www.gaia.com/invite/join?rfd=WS34Mw&utm_source=iaf" class="link-button">Watch The SSP On Gaia</a>
-        <a href="https://chatllm.abacus.ai/WLhWkLKGKD" class="link-button">ChatLLM Best AI App</a>
-        <a href="https://flamo.us/" class="link-button">Shop Disney Hats</a>
-        <a href="https://zotozengaming.netlify.app/" class="link-button">My Gamer Tags</a>
-        <a id="donationButton" href="https://paypal.me/ZotoZen?country.x=US&locale.x=es_XC">Support The Work</a>
-    </div>
-    <div class="footer">
-        Powered by good vibes & built by Zoto.
     </div>
 
     <script>
@@ -371,7 +438,7 @@
             "My DMs are open, ladies",
             "Warrior | Meditator | Guardian",
             "May the force be with you.",
-            "How much wood could a woodchuck chuck\nIf a woodchuck could chuck wood?", // Added newline for readability
+            "How much wood could a woodchuck chuck if a woodchuck could chuck wood?", // Removed newline
             "Buckle up, Buttercup!",
             "Thank you for everything, truly! 🙏",
             "What's up vatos! I'm Zoto!",
@@ -423,7 +490,7 @@
             linkButtons.forEach(button => {
                 button.classList.toggle('dark-mode');
             });
-            footer.classList.toggle('dark-mode');
+            // footer.classList.toggle('dark-mode'); // Footer color is handled differently now
 
             if (body.classList.contains('dark-mode')) {
                 modeToggle.textContent = 'Light Mode';
@@ -431,16 +498,12 @@
                 clearInterval(subtitleInterval);
                 setRandomSubtitle(darkModeSubtitles);
                 subtitleInterval = setInterval(cycleSubtitles, 4000);
-                // Profile image logic remains the same as it's not changing
-                profileImg.src = profileImg.src; // Keep current image
             } else {
                 modeToggle.textContent = 'Dark Mode';
                  // Set a random light mode subtitle
                  clearInterval(subtitleInterval);
                 setRandomSubtitle(lightModeSubtitles);
                 subtitleInterval = setInterval(cycleSubtitles, 4000);
-                 // Profile image logic remains the same as it's not changing
-                profileImg.src = profileImg.src; // Keep current image
             }
         });
 
@@ -481,7 +544,8 @@
             }
 
             draw() {
-                ctx.fillStyle = this.color;
+                let color = body.classList.contains('dark-mode') ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)';
+                ctx.fillStyle = color;
                 ctx.globalAlpha = this.opacity;
                 ctx.fillRect(this.x, this.y, this.size, this.size);
                 ctx.globalAlpha = 1; // Reset alpha
@@ -493,9 +557,7 @@
             for (let i = 0; i < numParticles; i++) {
                 const x = Math.random() * canvas.width;
                 const y = Math.random() * canvas.height;
-                // Randomly choose a color for the particles
-                const color = Math.random() < 0.5 ? 'rgba(100, 100, 100, 0.8)' : 'rgba(150, 150, 150, 0.8)';
-                particles.push(new Particle(x, y, color));
+                particles.push(new Particle(x, y));
             }
         }
 
