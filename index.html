@@ -127,7 +127,7 @@
             opacity: 1; /* Full opacity on hover */
         }
 
-        .link-button {
+        .link-button, .gemini-button {
             display: block;
             width: 100%;
             padding: 30px 0; /* Increased padding for more height */
@@ -140,6 +140,13 @@
             transition: background-color 0.3s, color 0.3s, transform 0.2s ease;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             text-align: center; /* Center the text */
+            cursor: pointer;
+        }
+        
+        .gemini-button {
+            background: linear-gradient(45deg, #4285F4, #9b72cb, #d96570, #f2a600);
+            color: white;
+            font-weight: bold;
         }
 
         .link-button.dark-mode {
@@ -190,67 +197,135 @@
             transform: scale(1.05);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
+        
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+        body.dark-mode .modal-content {
+            background-color: #2d2d2d;
+        }
+        .modal-close-btn {
+            background-color: #e0e0e0;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        body.dark-mode .modal-close-btn {
+            background-color: #444;
+            color: #eee;
+        }
+
+        #declaration-output {
+            width: 100%;
+            height: 250px;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        body.dark-mode #declaration-output {
+            background-color: #1e1e1e;
+            color: #eee;
+            border-color: #555;
+        }
+        
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        body.dark-mode .loader {
+             border: 4px solid #444;
+             border-top: 4px solid #58a6ff;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
         @media (max-width: 400px) {
             .mode-toggle {
                 top: 10px;
                 right: 10px;
-                padding: 8px 12px; /* Adjust padding for smaller screens */
+                padding: 8px 12px;
             }
-
-            .profile-image {
-                margin-top: 60px; /* Keep margin consistent */
-            }
-
             .container {
-                width: 90%; /* Make container more responsive */
-                max-width: 300px; /* Maintain max width */
+                width: 90%;
+                max-width: 300px;
             }
         }
 
-        /* === 8-bit Particle Animation === */
         #particleCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0; /* Background layer */
-            pointer-events: none; /* Allow clicks on elements below */
+            z-index: 0;
+            pointer-events: none;
         }
 
-        /* === Footer Styles === */
         .footer {
-            position: relative; /* Changed from absolute to flow with content */
+            position: relative;
             width: 100%;
-            padding: 40px 20px 20px 20px; /* Added top padding */
+            padding: 40px 20px 20px 20px;
             text-align: center;
             font-size: 0.8em;
             color: #888;
-            background-color: transparent; /* Make it blend with body */
+            background-color: transparent;
             transition: color 0.3s;
             z-index: 1; 
         }
 
-        body.dark-mode .footer {
-            color: #888;
-        }
+        body.dark-mode .footer { color: #888; }
         
-        /* Styles for the declaration text */
         .declaration-text {
-            white-space: pre-line; /* This preserves line breaks */
+            white-space: pre-line;
             line-height: 1.6;
             font-size: 0.85em;
             color: #666;
             max-width: 500px;
-            margin: 0 auto 20px auto; /* Center block and add space below */
+            margin: 0 auto 20px auto;
         }
         
-        body.dark-mode .declaration-text {
-            color: #aaa;
-        }
+        body.dark-mode .declaration-text { color: #aaa; }
 
-        /* Style for the "see more/less" links */
         .toggle-link {
             cursor: pointer;
             text-decoration: underline;
@@ -258,35 +333,35 @@
             font-weight: bold;
             margin-left: 4px;
         }
-        body.dark-mode .toggle-link {
-            color: #58a6ff;
+        body.dark-mode .toggle-link { color: #58a6ff; }
+
+        #donationButton, .featured-link-button {
+            padding: 30px 0;
         }
 
-        /* === Special Donation Button Styles === */
         #donationButton {
             display: block;
             width: 100%;
-            padding: 30px 0; /* Increased padding for more height */
-            margin-top: 20px; /* Add space above */
+            margin-top: 20px;
             border: none;
             border-radius: 8px;
-            background-color: #ffd700; /* Gold color */
+            background-color: #ffd700;
             color: #000;
             text-decoration: none;
             text-align: center;
             font-weight: bold;
             transition: background-color 0.3s, transform 0.2s ease;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            order: 100; /* Push to the bottom of the flex container */
+            order: 100;
         }
 
         #donationButton:hover {
-            background-color: #ffc300; /* Darker gold on hover */
+            background-color: #ffc300;
             transform: translateY(-2px);
         }
 
         #donationButton.dark-mode {
-            background-color: #ffd700; /* Keep gold in dark mode */
+            background-color: #ffd700;
             color: #000;
         }
 
@@ -296,15 +371,13 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* === Latest Featured Link Styles === */
         .featured-link-button {
             display: block;
             width: 100%;
-            padding: 30px 0; /* Increased padding for more height */
             margin-bottom: 10px;
             border: none;
             border-radius: 8px;
-            background-color: #f44336; /* Red color */
+            background-color: #f44336;
             color: #fff;
             text-decoration: none;
             text-align: center;
@@ -314,13 +387,13 @@
         }
 
         .featured-link-button:hover {
-            background-color: #e53935; /* Darker red on hover */
+            background-color: #e53935;
             transform: translateY(-2px);
              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .featured-link-button.dark-mode {
-            background-color: #f44336; /* Keep red in dark mode */
+            background-color: #f44336;
             color: #fff;
         }
 
@@ -334,7 +407,6 @@
 <body>
     <canvas id="particleCanvas"></canvas>
     
-    <!-- Main content and new footer are wrapped in a single flex column -->
     <div style="display: flex; flex-direction: column; width: 100%; align-items: center;">
 
         <div class="container">
@@ -350,8 +422,7 @@
                 <a href="https://www.instagram.com/zoto.zen/" title="Instagram"><img src="https://unpkg.com/simple-icons@v7/icons/instagram.svg" alt="Instagram" onerror="this.onerror=null; this.src='https://placehold.co/24x24/eeeeee/333333?text=IG'"></a>
             </div>
             <hr>
-            <!-- Latest Featured Video -->
-            <hr>
+            <button id="gemini-modal-btn" class="gemini-button">✨ Generate a Personal Declaration</button>
             <a href="https://youtu.be/WLsVN2GAxeE" class="featured-link-button" id="latest-link-button">▶️ Latest YouTube Video</a>
             <a href="https://secrettoeverything.substack.com/" class="featured-link-button">🪷 Secret To Everything</a>
             <a href="https://www.insighthealthapps.com/" class="featured-link-button">🧘‍♂️ Aura Reading App</a>
@@ -361,11 +432,6 @@
             <a href="https://zotozen.github.io/vril-lizard/" class="link-button">Vril Lizard Website</a>
             <a href="https://drive.proton.me/urls/MAH96NGJSW#h5ssxd7KNB7G" class="link-button">The Vault: Files & PDFS</a>
             <a href="https://zotowebdesign.netlify.app/" class="link-button">Web Design</a>
-            <a href="https://www.planetfitness.com/referrals?referralCode=GV0R0PC1" class="link-button">Join PlanetFitness</a>
-            <a href="https://www.gaia.com/invite/join?rfd=WS34Mw&utm_source=iaf" class="link-button">Watch The SSP On Gaia</a>
-            <a href="https://chatllm.abacus.ai/WLhWkLKGKD" class="link-button">ChatLLM Best AI App</a>
-            <a href="https://flamo.us/" class="link-button">Shop Disney Hats</a>
-            <a href="https://zotozengaming.netlify.app/" class="link-button">My Gamer Tags</a>
             <a id="donationButton" href="https://paypal.me/ZotoZen?country.x=US&locale.x=es_XC">Support The Work</a>
         </div>
         <div class="footer">
@@ -419,222 +485,249 @@ It. Is. Done.
             Powered by good vibes & built by Zoto.
         </div>
     </div>
+    
+    <!-- Gemini Modal -->
+    <div id="gemini-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Your Personal Declaration</h2>
+            <p style="font-size: 0.9em; margin-bottom: 1rem; color: #666;">Inspired by the host's declaration, a new one has been generated for you. Feel free to use it as your own.</p>
+            <div id="gemini-output-container">
+                 <textarea id="declaration-output" readonly>Click "Generate" to create your declaration...</textarea>
+            </div>
+            <div id="gemini-loader" class="loader" style="display: none;"></div>
+            <button id="generate-declaration-btn" class="gemini-button" style="width: auto; padding: 0.5rem 1rem;">Generate</button>
+            <button id="copy-declaration-btn" class="modal-close-btn">Copy</button>
+            <button id="modal-close-btn" class="modal-close-btn" style="float: right;">Close</button>
+        </div>
+    </div>
+
 
     <script>
-        const modeToggle = document.getElementById('modeToggle');
-        const body = document.body;
-        const linkButtons = document.querySelectorAll('.link-button, .featured-link-button, #donationButton'); // Include featured and donation buttons.  Important for dark mode
-        const profileImg = document.getElementById('profileImg');
-        const canvas = document.getElementById('particleCanvas');
-        const ctx = canvas.getContext('2d');
-        const footer = document.querySelector('.footer');
-        const profileSubtitle = document.getElementById('profileSubtitle'); // Get the subtitle element
-        const profileTitle = document.getElementById('profileTitle');
-        const donationButton = document.getElementById('donationButton'); // Get the donation button
+        document.addEventListener('DOMContentLoaded', function () {
+            const modeToggle = document.getElementById('modeToggle');
+            const body = document.body;
+            const linkButtons = document.querySelectorAll('.link-button, .featured-link-button, #donationButton, .gemini-button');
+            const profileImg = document.getElementById('profileImg');
+            const canvas = document.getElementById('particleCanvas');
+            const ctx = canvas.getContext('2d');
+            const footer = document.querySelector('.footer');
+            const profileSubtitle = document.getElementById('profileSubtitle');
+            const profileTitle = document.getElementById('profileTitle');
 
-        // === Declaration expander ===
-        const seeMoreLink = document.getElementById('see-more-link');
-        const seeLessLink = document.getElementById('see-less-link');
-        const declarationMore = document.getElementById('declaration-more');
-        
-        seeMoreLink.addEventListener('click', function(event) {
-            event.preventDefault();
-            declarationMore.style.display = 'inline'; // Show the rest of the text
-            seeMoreLink.style.display = 'none'; // Hide the "see more" link
-        });
-
-        seeLessLink.addEventListener('click', function(event) {
-            event.preventDefault();
-            declarationMore.style.display = 'none'; // Hide the rest of the text
-            seeMoreLink.style.display = 'inline'; // Show the "see more" link again
-        });
-
-        // Array of possible subtitles for Light Mode
-        const lightModeSubtitles = [
-            "Neo-Andalusian Starseed",
-            "Desert Mystic of the Atlantean Flame",
-            "Child of the Five Ancients",
-            "Mestizo of the Moors, Maya, and Mesopotamia",
-            "Time-traveler with a passport from Ur to Tenochtitlan",
-            "A descendant of Atlantis’ echoes via Sonoran shamans",
-            "A spiritual child of Sumer and keeper of Andalusian light",
-            "A carrier of jungle drums, desert winds, and seafarer’s whispers",
-            "Cosmic Citizen with VIP lineage access",
-            "Carrying DNA from five continents.",
-            "Acturian Starseed",
-            "The Choosen One, LoL",
-            "Modern Mystic",
-            "Not from the 144, but IQ is 144",
-            "Warrior | Meditator | Guardian",
-            "May the force be with you.",
-            "How much wood could a woodchuck chuck if a woodchuck could chuck wood?", // Removed newline
-            "Buckle up, Buttercup!",
-            "Thank you for everything, truly! 🙏",
-            "What's up vatos! I'm Zoto!",
-            "Make yourself at home, homies.",
-            "World's greatest detective!"
-        ];
-
-        // Array of possible subtitles for Dark Mode
-        const darkModeSubtitles = [
-            "The best way to get an idea started is to quit talking and begin doing. - Walt Disney",
-            "Don't watch the clock; do what it does. Keep going. - Sam Levenson",
-            "You don't have to be great to start, but you have to start to be great. - Zig Ziglar",
-            "Bootstrapping is about being resourceful, not resourceless. - Unknown",
-            "The way to get started is to quit talking and begin doing. - Walt Disney"
-        ];
-
-        let subtitleIndex = 0;
-        let subtitleInterval;
-
-        // Function to select a random subtitle from a given array
-        function setRandomSubtitle(subtitleArray) {
-            const randomIndex = Math.floor(Math.random() * subtitleArray.length);
-            profileSubtitle.textContent = subtitleArray[randomIndex];
-        }
-
-        function cycleSubtitles() {
-            subtitleIndex = (subtitleIndex + 1) % (body.classList.contains('dark-mode') ? darkModeSubtitles.length : lightModeSubtitles.length);
-            const currentSubtitleArray = body.classList.contains('dark-mode') ? darkModeSubtitles : lightModeSubtitles;
-            profileSubtitle.textContent = currentSubtitleArray[subtitleIndex];
-        }
-
-        // Set a random subtitle when the page loads based on initial mode (defaulting to light)
-        window.onload = function() {
-            if (body.classList.contains('dark-mode')) {
-                setRandomSubtitle(darkModeSubtitles);
-            } else {
-                setRandomSubtitle(lightModeSubtitles);
-            }
-            // Also initialize and start particle animation on load
-            adjustParticleDensity();
-            initializeParticles();
-            animateParticles();
-            typeWriter(); //start the typewriter
-            subtitleInterval = setInterval(cycleSubtitles, 4000);
-        };
-
-        modeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            linkButtons.forEach(button => {
-                button.classList.toggle('dark-mode');
+            const seeMoreLink = document.getElementById('see-more-link');
+            const seeLessLink = document.getElementById('see-less-link');
+            const declarationMore = document.getElementById('declaration-more');
+            
+            seeMoreLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                declarationMore.style.display = 'inline';
+                seeMoreLink.style.display = 'none';
             });
 
-            if (body.classList.contains('dark-mode')) {
-                modeToggle.textContent = 'Light Mode';
-                // Set a random dark mode subtitle
+            seeLessLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                declarationMore.style.display = 'none';
+                seeMoreLink.style.display = 'inline';
+            });
+
+            const lightModeSubtitles = [ "Neo-Andalusian Starseed", "Desert Mystic of the Atlantean Flame", "Child of the Five Ancients", "Mestizo of the Moors, Maya, and Mesopotamia", "Time-traveler with a passport from Ur to Tenochtitlan", "A descendant of Atlantis’ echoes via Sonoran shamans", "A spiritual child of Sumer and keeper of Andalusian light", "A carrier of jungle drums, desert winds, and seafarer’s whispers", "Cosmic Citizen with VIP lineage access", "Carrying DNA from five continents.", "Acturian Starseed", "The Choosen One, LoL", "Modern Mystic", "Not from the 144, but IQ is 144", "Warrior | Meditator | Guardian", "May the force be with you.", "How much wood could a woodchuck chuck if a woodchuck could chuck wood?", "Buckle up, Buttercup!", "Thank you for everything, truly! 🙏", "What's up vatos! I'm Zoto!", "Make yourself at home, homies.", "World's greatest detective!" ];
+            const darkModeSubtitles = [ "The best way to get an idea started is to quit talking and begin doing. - Walt Disney", "Don't watch the clock; do what it does. Keep going. - Sam Levenson", "You don't have to be great to start, but you have to start to be great. - Zig Ziglar", "Bootstrapping is about being resourceful, not resourceless. - Unknown", "The way to get started is to quit talking and begin doing. - Walt Disney" ];
+            let subtitleIndex = 0;
+            let subtitleInterval;
+
+            function setRandomSubtitle(subtitleArray) {
+                const randomIndex = Math.floor(Math.random() * subtitleArray.length);
+                profileSubtitle.textContent = subtitleArray[randomIndex];
+            }
+
+            function cycleSubtitles() {
+                const currentSubtitleArray = body.classList.contains('dark-mode') ? darkModeSubtitles : lightModeSubtitles;
+                subtitleIndex = (subtitleIndex + 1) % currentSubtitleArray.length;
+                profileSubtitle.textContent = currentSubtitleArray[subtitleIndex];
+            }
+
+            // === Gemini API Integration ===
+            const geminiModalBtn = document.getElementById('gemini-modal-btn');
+            const geminiModal = document.getElementById('gemini-modal');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+            const generateDeclarationBtn = document.getElementById('generate-declaration-btn');
+            const copyDeclarationBtn = document.getElementById('copy-declaration-btn');
+            const declarationOutput = document.getElementById('declaration-output');
+            const geminiLoader = document.getElementById('gemini-loader');
+            const geminiOutputContainer = document.getElementById('gemini-output-container');
+
+            const originalDeclaration = `I AM DAVID SOTO. I am not born of this realm’s artificial cycles... [rest of declaration]... It. Is. Done.`; // Abridged for prompt
+
+            geminiModalBtn.addEventListener('click', () => {
+                geminiModal.classList.add('visible');
+            });
+            modalCloseBtn.addEventListener('click', () => {
+                geminiModal.classList.remove('visible');
+            });
+
+            generateDeclarationBtn.addEventListener('click', async () => {
+                geminiOutputContainer.style.display = 'none';
+                geminiLoader.style.display = 'block';
+                generateDeclarationBtn.disabled = true;
+
+                const prompt = `Based on the following declaration of sovereignty, please write a new, unique, and powerful declaration for me. Use a similar tone and structure, but create new roles and concepts. The original is: "${originalDeclaration}". The new declaration should start with "I AM [A NEW, POWERFUL NAME/CONCEPT]." and end with "It. Is. Done."`;
+                
+                try {
+                    let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API request failed with status ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        declarationOutput.value = text;
+                    } else {
+                        declarationOutput.value = "Sorry, I couldn't generate a declaration at this time. Please try again.";
+                    }
+                } catch (error) {
+                    console.error("Gemini API Error:", error);
+                    declarationOutput.value = "An error occurred. Please check the console for details and try again later.";
+                } finally {
+                    geminiLoader.style.display = 'none';
+                    geminiOutputContainer.style.display = 'block';
+                    generateDeclarationBtn.disabled = false;
+                }
+            });
+
+            copyDeclarationBtn.addEventListener('click', () => {
+                declarationOutput.select();
+                document.execCommand('copy');
+                copyDeclarationBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyDeclarationBtn.textContent = 'Copy';
+                }, 2000);
+            });
+
+            window.onload = function() {
+                const initialDarkMode = body.classList.contains('dark-mode');
+                setRandomSubtitle(initialDarkMode ? darkModeSubtitles : lightModeSubtitles);
+                subtitleInterval = setInterval(cycleSubtitles, 4000);
+                
+                adjustParticleDensity();
+                initializeParticles();
+                animateParticles();
+                typeWriter();
+            };
+
+            modeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                linkButtons.forEach(button => {
+                    button.classList.toggle('dark-mode');
+                });
+
+                if (body.classList.contains('dark-mode')) {
+                    modeToggle.textContent = 'Light Mode';
+                } else {
+                    modeToggle.textContent = 'Dark Mode';
+                }
                 clearInterval(subtitleInterval);
-                setRandomSubtitle(darkModeSubtitles);
+                setRandomSubtitle(body.classList.contains('dark-mode') ? darkModeSubtitles : lightModeSubtitles);
                 subtitleInterval = setInterval(cycleSubtitles, 4000);
-            } else {
-                modeToggle.textContent = 'Dark Mode';
-                 // Set a random light mode subtitle
-                 clearInterval(subtitleInterval);
-                setRandomSubtitle(lightModeSubtitles);
-                subtitleInterval = setInterval(cycleSubtitles, 4000);
-            }
-        });
-
-        // === 8-bit Particle System ===
-        const particles = [];
-        let numParticles = 200;
-        let particleSize = 3;
-
-        // Set initial canvas size
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.size = Math.random() * particleSize + 1;
-                this.color = color;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.opacity = 0;
-                this.fadeSpeed = 0.02;
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                // Wrap particles around the screen
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-
-                // Fade in the particles
-                this.opacity += this.fadeSpeed;
-                if (this.opacity > 1) this.opacity = 1;
-            }
-
-            draw() {
-                let color = body.classList.contains('dark-mode') ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)';
-                ctx.fillStyle = color;
-                ctx.globalAlpha = this.opacity;
-                ctx.fillRect(this.x, this.y, this.size, this.size);
-                ctx.globalAlpha = 1; // Reset alpha
-            }
-        }
-
-        function initializeParticles() {
-            particles.length = 0; // Clear existing particles
-            for (let i = 0; i < numParticles; i++) {
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height;
-                particles.push(new Particle(x, y));
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
             });
-            requestAnimationFrame(animateParticles); // Loop the animation
-        }
 
-        // Adjust particle density based on screen size
-        function adjustParticleDensity() {
-            if (window.innerWidth < 768) {
-                numParticles = 100;
-                particleSize = 2;
-            } else if (window.innerWidth < 1200) {
-                numParticles = 150;
-                particleSize = 2.5;
-            } else {
-                numParticles = 200;
-                particleSize = 3;
-            }
-            initializeParticles(); // Re-initialize particles with new density
-        }
+            const particles = [];
+            let numParticles = 200;
+            let particleSize = 3;
 
-        // Adjust canvas size and particle density on window resize
-        window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            adjustParticleDensity();
-        });
 
-        // === Typewriter Effect ===
-        let i = 0;
-        const txt = '@ZotoZen';
-        const speed = 150; // Typing speed
+            class Particle {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.size = Math.random() * particleSize + 1;
+                    this.speedX = (Math.random() - 0.5) * 0.5;
+                    this.speedY = (Math.random() - 0.5) * 0.5;
+                    this.opacity = 0;
+                    this.fadeSpeed = 0.02;
+                }
 
-        function typeWriter() {
-            if (i < txt.length) {
-                profileTitle.textContent += txt.charAt(i);
-                i++;
-                setTimeout(typeWriter, speed);
-            } else {
-                // If you want the cursor to blink at the end of the typing
-                profileTitle.style.borderRight = 'none'; // Remove cursor
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.y < 0) this.y = canvas.height;
+
+                    this.opacity += this.fadeSpeed;
+                    if (this.opacity > 1) this.opacity = 1;
+                }
+
+                draw() {
+                    let color = body.classList.contains('dark-mode') ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)';
+                    ctx.fillStyle = color;
+                    ctx.globalAlpha = this.opacity;
+                    ctx.fillRect(this.x, this.y, this.size, this.size);
+                    ctx.globalAlpha = 1;
+                }
             }
-        }
+
+            function initializeParticles() {
+                particles.length = 0;
+                for (let i = 0; i < numParticles; i++) {
+                    particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                requestAnimationFrame(animateParticles);
+            }
+
+            function adjustParticleDensity() {
+                if (window.innerWidth < 768) {
+                    numParticles = 100;
+                    particleSize = 2;
+                } else if (window.innerWidth < 1200) {
+                    numParticles = 150;
+                    particleSize = 2.5;
+                } else {
+                    numParticles = 200;
+                    particleSize = 3;
+                }
+                initializeParticles();
+            }
+
+            window.addEventListener('resize', adjustParticleDensity);
+
+            let i = 0;
+            const txt = '@ZotoZen';
+            const speed = 150;
+
+            function typeWriter() {
+                if (i < txt.length) {
+                    profileTitle.textContent += txt.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                } else {
+                    profileTitle.style.borderRight = 'none';
+                }
+            }
+        });
     </script>
 </body>
 </html>
